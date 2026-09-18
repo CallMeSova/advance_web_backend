@@ -1,5 +1,6 @@
 import express from "express";
 import { conn } from "../dbconnect";
+import { Trip } from "../model/trip";
 
 export const router = express.Router();
 
@@ -17,7 +18,8 @@ export const router = express.Router();
 
 router.get("/", async (req, res) => {
   const [rows] = await conn.query("SELECT * FROM trip");
-  res.send(rows);
+  let trips = rows as Trip[];
+  res.json(trips);
 });
 
 // router.get("/:id", (req, res) => {
